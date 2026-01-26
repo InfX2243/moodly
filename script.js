@@ -18,6 +18,14 @@ const MOOD_THEME_MAP = {
 const themeToggleBtn = document.getElementById("themeToggle");
 const THEME_KEY = "theme";
 
+function getTodayDate(){
+    return new Date().toISOString().split("T")[0];
+}
+
+function parseDate(dateString){
+    return new Date(dateString + "T00:00:00");
+}
+
 // Select mood
 moodButton.forEach(btn => {
     btn.addEventListener("click", ()=>{
@@ -41,7 +49,7 @@ saveBtn.addEventListener("click", ()=>{
         return;
     }
 
-    const today = new Date().toLocaleDateString();
+    const today = getTodayDate();
     const note = noteInput.value.trim();
 
     const moods = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -95,7 +103,7 @@ function renderHistory(){
     });
 
     // Update mood based theme
-    const today = new Date().toLocaleDateString();
+    const today = getTodayDate();
     const todayEntry = moods.find(entry=>entry.date === today);
     if(todayEntry){
         applyMoodTheme(todayEntry.mood);
@@ -121,15 +129,15 @@ function applyMoodTheme(mood){
 function calculateStreak(moods){
     if(moods.length === 0) return 0;
 
-    // Sort by date descending
-    const sorted = moods
-        .map(entry => new Date(entry.date))
+    // Extract & Sort by date descending
+    const dates = moods
+        .map(entry => parseDate(entry.date))
         .sort((a, b) => b - a);
 
     let streak = 1;
 
-    for(let i = 0; i < sorted.length - 1; i++){
-        const diffInDays = (sorted[i] - sorted[i + 1]) / (1000 * 60 * 60 * 24);
+    for(let i = 0; i < dates.length - 1; i++){
+        const diffInDays = (dates[i] - dates[i + 1]) / (1000 * 60 * 60 * 24);
 
         if(diffInDays === 1){
             streak++;
