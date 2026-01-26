@@ -6,6 +6,15 @@ const noteInput = document.getElementById("note");
 const STORAGE_KEY = "moods";
 let selectedMood = "";
 
+// Map mood emoji to body class
+const MOOD_THEME_MAP = {
+    "😄": "happy",
+    "🙂": "okay",
+    "😐": "meh",
+    "😢": "sad",
+    "😡": "angry"
+}
+
 // Select mood
 moodButton.forEach(btn => {
     btn.addEventListener("click", ()=>{
@@ -15,6 +24,9 @@ moodButton.forEach(btn => {
         // Add 'selected' class to clicked button
         btn.classList.add("selected");
         selectedMood = btn.textContent;
+
+        // Apply mood theme
+        applyMoodTheme(selectedMood);
     });
 });
 
@@ -69,6 +81,24 @@ function renderHistory(){
         li.innerHTML = `<strong>${entry.date} - ${entry.mood}</strong> ${entry.note ? `: ${entry.note}`:''}`;
         historyList.appendChild(li);
     });
+
+    const today = new Date().toLocaleDateString();
+    const todayEntry = moods.find(entry=>entry.date === today);
+    if(todayEntry){
+        applyMoodTheme(todayEntry.mood);
+    }
+}
+
+function applyMoodTheme(mood){
+    // Remove existing mood classes
+    document.body.classList.remove(
+        "happy","okay","meh","sad","angry"
+    );
+
+    const themeClass = MOOD_THEME_MAP[mood];
+    if(themeClass){
+        document.body.classList.add(themeClass);
+    }
 }
 
 // Load on start

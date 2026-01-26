@@ -6,6 +6,26 @@ body{
     padding-top: 50px;
 }
 
+body.happy{
+    background: #fff7cc;
+}
+
+body.okay{
+    background: #e6f0ff;
+}
+
+body.meh{
+    background: #eeeeee;
+}
+
+body.sad{
+    background: #e0f2ff;
+}
+
+body.angry{
+    background: #ffe0e0;
+}
+
 .container{
     background: white;
     padding: 20px 30px;
