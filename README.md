@@ -4,8 +4,9 @@ A simple web app to track your daily mood with optional notes. Stores your mood 
 
 ## Features
 - Select your mood from 5 emojis 😄 🙂 😐 😢 😡
-- Optional text note for each day
-- View mood history
+- **Add an optional note for each mood**
+- **Only one mood per day** (today's entry updates if saved again)
+- View mood history with notes
 - Stores data locally, so it persists across sessions
 
 ## Tech Stack
@@ -17,14 +18,14 @@ A simple web app to track your daily mood with optional notes. Stores your mood 
 ## How to Use
 1. Open `index.html` in your browser
 2. Select a mood
-3. Optionally write a note
+3. Optionally write a note explaining your mood
 4. Click "Save Mood"
-5. Your mood history will appear below
+5. Your mood history will appear below, showing the date, mood and note
 
 ## Future Improvements
-- One mood per day
-- Mood stats & charts
+- Mood-based theme/background color
 - Dark mode
+- Mood stats & streaks
 - Export mood history
 
 ## Author
