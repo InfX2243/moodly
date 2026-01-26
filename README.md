@@ -11,6 +11,7 @@ A simple web app to track your daily mood with optional notes. Stores your mood 
 - View mood history with notes
 - Stores data locally, so it persists across sessions
 - Daily mood streak tracking
+- Mood statistics (most frequent mood & total tracked days)
 
 ## Tech Stack
 - HTML
@@ -26,9 +27,10 @@ A simple web app to track your daily mood with optional notes. Stores your mood 
 5. Your mood history will appear below, showing the date, mood and note
 
 ## Future Improvements
-- Mood stats
+- Charts
 - Export data
 - Animations
+- Weekly/monthly breakdown
 
 ## Author
 InfX2243
