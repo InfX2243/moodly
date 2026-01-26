@@ -15,6 +15,9 @@ const MOOD_THEME_MAP = {
     "😡": "angry"
 }
 
+const themeToggleBtn = document.getElementById("themeToggle");
+const THEME_KEY = "theme";
+
 // Select mood
 moodButton.forEach(btn => {
     btn.addEventListener("click", ()=>{
@@ -71,6 +74,15 @@ saveBtn.addEventListener("click", ()=>{
     renderHistory();
 });
 
+themeToggleBtn.addEventListener("click", ()=>{
+    document.body.classList.toggle("dark");
+
+    const isDark = document.body.classList.contains("dark");
+    localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
+
+    themeToggleBtn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+})
+
 // Render mood history
 function renderHistory(){
     const moods = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -101,5 +113,14 @@ function applyMoodTheme(mood){
     }
 }
 
+function loadThemePreference(){
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    if(savedTheme === "dark"){
+        document.body.classList.add("dark");
+        themeToggleBtn.textContent = "☀️ Light Mode";
+    }
+}
+
 // Load on start
 renderHistory();
+loadThemePreference();
