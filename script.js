@@ -112,6 +112,11 @@ function renderHistory(){
     // Update streak
     const streakCount = calculateStreak(moods);
     document.getElementById("streak").textContent = `🔥 Streak: ${streakCount} day${streakCount !== 1 ? "s" : ""}`;
+
+    // Update stats
+    const mostMood = calculateMostFrequentMood(moods);
+    document.getElementById("mostMood").textContent = `Most common mood: ${mostMood || "-"}`;
+    document.getElementById("totalEntries").textContent = `Total days tracked: ${moods.length}`;
 }
 
 function applyMoodTheme(mood){
@@ -147,6 +152,28 @@ function calculateStreak(moods){
         }
     }
     return streak;
+}
+
+function calculateMostFrequentMood(moods){
+    if(moods.length === 0) return null;
+
+    const counts = {};
+
+    moods.forEach(entry =>{
+        counts[entry.mood] = (counts[entry.mood] || 0) + 1;
+    });
+
+    let mostMood = null;
+    let maxCount = 0;
+
+    for(const mood in counts){
+        if(counts[mood] > maxCount){
+            mostMood = mood;
+            maxCount = counts[mood];
+        }
+    }
+
+    return mostMood;
 }
 
 function loadThemePreference(){
