@@ -7,6 +7,7 @@ A simple web app to track your daily mood with optional notes. Stores your mood 
 - **Add an optional note for each mood**
 - **Only one mood per day** (today's entry updates if saved again)
 - Mood-based background theme that changes based on your selection
+- Dark mode toggle with persistent preference
 - View mood history with notes
 - Stores data locally, so it persists across sessions
 
@@ -24,7 +25,6 @@ A simple web app to track your daily mood with optional notes. Stores your mood 
 5. Your mood history will appear below, showing the date, mood and note
 
 ## Future Improvements
-- Dark mode
 - Mood stats & streaks
 - Export mood history
 
