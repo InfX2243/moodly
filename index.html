@@ -3,38 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mood Tracker</title>
+    <title>Moodly - Mood Tracker Web App</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <button id="themeToggle">🌙 Dark Mode</button>
-        <p id="streak">🔥 Streak: 0 days</p>
+    <main class="app">
+        <div class="container">
+            <h1 class="app-title">Moodly</h1>
+            <p class="subtitle">Track how you feel, one day at a time</p>
+            <button id="themeToggle">🌙 Dark Mode</button>
+            <p id="streak">🔥 Streak: 0 days</p>
+            
+            <section id="stats">
+                <h3>📊 Stats</h3>
+                <p id="mostMood">Most common mood: -</p>
+                <p id="totalEntries">Total days tracked: 0</p>
+            </section>
+            
+            <h1>How are you feeling today?</h1>
 
-        <section id="stats">
-            <h3>📊 Stats</h3>
-            <p id="mostMood">Most common mood: -</p>
-            <p id="totalEntries">Total days tracked: 0</p>
-        </section>
-
-        <h1>How are you feeling today?</h1>
-
-        <div class="moods">
-            <button class="mood">😄</button>
-            <button class="mood">🙂</button>
-            <button class="mood">😐</button>
-            <button class="mood">😢</button>
-            <button class="mood">😡</button>
-        </div>
+            <div class="moods">
+                <button class="mood">😄</button>
+                <button class="mood">🙂</button>
+                <button class="mood">😐</button>
+                <button class="mood">😢</button>
+                <button class="mood">😡</button>
+            </div>
         
-        <!-- Note for mood -->
-        <textarea id="note" placeholder="Why do you feel this way?"></textarea>
-
-        <button id="saveBtn">Save Mood</button>
-
-        <h2>Mood History</h2>
-        <ul id="history"></ul>
-    </div>
+            <!-- Note for mood -->
+            <textarea id="note" placeholder="Why do you feel this way?"></textarea>
+            
+            <button id="saveBtn">Save Mood</button>
+            
+            <h2>Mood History</h2>
+            <div id="emptyState">
+                <p>🌱 No moods yet</p>
+                <p>Start by logging how you feel today</p>
+            </div>
+            <ul id="history"></ul>
+        </div>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>

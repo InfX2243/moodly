@@ -36,6 +36,11 @@ moodButton.forEach(btn => {
         btn.classList.add("selected");
         selectedMood = btn.textContent;
 
+        // trigger bounce animation
+        btn.classList.remove("bounce"); // reset if already bouncing
+        void btn.offsetWidth; //force reflow (force browser to restart animation)
+        btn.classList.add("bounce");
+
         // Apply mood theme
         applyMoodTheme(selectedMood);
     });
@@ -93,11 +98,21 @@ themeToggleBtn.addEventListener("click", ()=>{
 
 // Render mood history
 function renderHistory(){
+    const emptyState = document.getElementById("emptyState");
     const moods = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     historyList.innerHTML = "";
+
+    if(moods.length === 0){
+        emptyState.style.display = "block";
+    }
+    else{
+        emptyState.style.display = "none";
+    }
     
     moods.forEach(entry =>{
         const li = document.createElement("li");
+        li.classList.add("history-item");
+        li.style.animationDelay = `${entry * 40}ms`
         li.innerHTML = `<strong>${entry.date} - ${entry.mood}</strong> ${entry.note ? `: ${entry.note}`:''}`;
         historyList.appendChild(li);
     });

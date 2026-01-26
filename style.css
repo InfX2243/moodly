@@ -1,9 +1,9 @@
 body{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    padding-top: 50px;
+    margin: 0;
+    min-height: 100vh;
+    transition: background 0.4s ease, color 0.3s ease;
 }
 
 body.happy{
@@ -55,12 +55,48 @@ body.dark.angry{
     background: #3a1e1e;
 }
 
+.app{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-title{
+    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: -0.5px;
+}
+
+.subtitle{
+    font-size: 14px;
+    font-weight: 400;
+    color: #666;
+}
+
 .container{
     background: white;
-    padding: 20px 30px;
-    border-radius: 10px;
+    padding: 24px 30px;
+    border-radius: 14px;
     width: 370px;
     text-align: center;
+}
+
+#emptyState{
+    color: #888;
+    font-size: 14px;
+    margin: 20px 0;
+    animation: fadeSlideIn 0.4s ease;
+}
+
+#emptyState p {
+    margin: 4px 0
+}
+
+h2{
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 20px;
 }
 
 .moods{
@@ -73,11 +109,40 @@ body.dark.angry{
     cursor: pointer;
     background: none;
     border: 2px solid transparent;
+    transition: transform 0.15s ease,box-shadow 0.15s ease, background 0.2s ease;
+}
+
+.mood:hover{
+    transform: scale(1.08);
 }
 
 .mood.selected{
     border-color: #333;
     border-radius: 8px;
+    transform: scale(1.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+p{
+    line-height: 1.5;
+}
+
+button, textarea{
+    font-family: inherit;
+}
+
+button{
+    font-weight: 500;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:active{
+    transform: scale(0.95);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+textarea{
+    line-height: 1.4;
 }
 
 textarea{
@@ -124,4 +189,33 @@ ul{
 
 li{
     margin: 5px 0;
+}
+
+/* History animations */
+@keyframes fadeSlideIn{
+    from{
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.history-item{
+    animation: fadeSlideIn 0.3s ease forwards;
+}
+
+/* Bounce animation */
+@keyframes bounce {
+    0% {transform: scale(1);}
+    30% {transform: scale(1.3);}
+    50% {transform: scale(0.9);}
+    70% {transform: scale(1.1);}
+    100% {transform: scale(1);}
+}
+
+.mood.bounce{
+    animation: bounce 0.4s ease;
 }
