@@ -94,11 +94,16 @@ function renderHistory(){
         historyList.appendChild(li);
     });
 
+    // Update mood based theme
     const today = new Date().toLocaleDateString();
     const todayEntry = moods.find(entry=>entry.date === today);
     if(todayEntry){
         applyMoodTheme(todayEntry.mood);
     }
+
+    // Update streak
+    const streakCount = calculateStreak(moods);
+    document.getElementById("streak").textContent = `🔥 Streak: ${streakCount} day${streakCount !== 1 ? "s" : ""}`;
 }
 
 function applyMoodTheme(mood){
@@ -111,6 +116,29 @@ function applyMoodTheme(mood){
     if(themeClass){
         document.body.classList.add(themeClass);
     }
+}
+
+function calculateStreak(moods){
+    if(moods.length === 0) return 0;
+
+    // Sort by date descending
+    const sorted = moods
+        .map(entry => new Date(entry.date))
+        .sort((a, b) => b - a);
+
+    let streak = 1;
+
+    for(let i = 0; i < sorted.length - 1; i++){
+        const diffInDays = (sorted[i] - sorted[i + 1]) / (1000 * 60 * 60 * 24);
+
+        if(diffInDays === 1){
+            streak++;
+        }
+        else{
+            break;
+        }
+    }
+    return streak;
 }
 
 function loadThemePreference(){
