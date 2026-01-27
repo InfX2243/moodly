@@ -55,6 +55,26 @@ body.dark.angry{
     background: #3a1e1e;
 }
 
+body.dark .card{
+    background: rgba(30, 30, 30, 0.9);
+}
+
+body.dark .history-item{
+    background: #2a2a2a;
+}
+
+body.dark .mood-hero{
+    background: linear-gradient(135deg, #1f2937, #111827);
+}
+
+body.dark .stat-pill{
+    background: #1f2937;
+}
+
+body.dark .mood.selected{
+    background: #111827;
+}
+
 .app{
     min-height: 100vh;
     display: flex;
@@ -75,11 +95,27 @@ body.dark.angry{
 }
 
 .container{
-    background: white;
-    padding: 24px 30px;
-    border-radius: 14px;
-    width: 370px;
+    background: #ffffff;
+    padding: 28px 26px;
+    margin: 30px;
+    border-radius: 18px;
+    width: 360px;
     text-align: center;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.card{
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    padding: 14px;
+    margin: 15px 0;
+}
+
+.card h2{
+    font-size: 16px;
+    margin-bottom: 8px;
 }
 
 #emptyState{
@@ -99,28 +135,83 @@ h2{
     margin-top: 20px;
 }
 
+.header{
+    margin-bottom: 20px;
+}
+
+.header-actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.history ul{
+    margin-top: 10px;
+}
+
+.history-item{
+    background: linear-gradient(135deg, #ffffff, #f9fafb);
+    border-left: 4px solid #6366f1;
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin-bottom: 6px 0;
+    font-size: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.history-item:hover{
+    transform: translateX(2px);
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.12);
+}
+
+.history-item strong{
+    display: block;
+    margin-bottom: 2px;
+}
+
 .moods{
     margin: 15px 0;
 }
 
 .mood{
-    font-size: 30px;
-    margin: 5px;
+    font-size: 34px;
+    margin: 6px;
+    padding: 8px;
+    border-radius: 10px;
     cursor: pointer;
     background: none;
     border: 2px solid transparent;
-    transition: transform 0.15s ease,box-shadow 0.15s ease, background 0.2s ease;
+    transition: transform 0.2s ease,box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .mood:hover{
-    transform: scale(1.08);
+    transform: scale(1.12);
 }
 
 .mood.selected{
-    border-color: #333;
+    border-color: transparent;
+    background: #ffffff;
     border-radius: 8px;
     transform: scale(1.15);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 18px rgba(99, 102, 241, 0.18);
+}
+
+.mood-input textarea{
+    margin-bottom: 12px;
+}
+
+.mood-hero{
+    background: linear-gradient(135deg, #f9fafb,#ffffff);
+    border-radius: 16px;
+    padding: 22px 18px;
+    margin: 22px 0;
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.12);
+    transition: background 0.3s ease;
+}
+
+.moode-hero h2{
+    margin-bottom: 12px;
 }
 
 p{
@@ -139,6 +230,32 @@ button{
 button:active{
     transform: scale(0.95);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.stats-row{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.stat-pill{
+    flex: 1;
+    background: #f9fafb;
+    border-radius: 14px;
+    padding: 12px;
+    text-align: center;
+    transition: background 0.3s ease;
+}
+
+.stat-pill small{
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.stat-pill span{
+    font-size: 20px;
+    font-weight: 600;
+    display: block;
 }
 
 textarea{
@@ -162,9 +279,30 @@ textarea{
 }
 
 #saveBtn{
-    padding: 8px 15px;
-    margin-bottom: 15px;
+    width: 100%;
+    padding: 12px 16px;
     cursor: pointer;
+
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #ffffff;
+    border-radius: 10px;
+    border: none;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+}
+
+#saveBtn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(99, 102, 241, 0.45);
+}
+
+#saveBtn:active{
+    transform: scale(0.97);
 }
 
 #streak{

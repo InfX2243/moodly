@@ -130,8 +130,8 @@ function renderHistory(){
 
     // Update stats
     const mostMood = calculateMostFrequentMood(moods);
-    document.getElementById("mostMood").textContent = `Most common mood: ${mostMood || "-"}`;
-    document.getElementById("totalEntries").textContent = `Total days tracked: ${moods.length}`;
+    document.getElementById("mostMood").textContent = `${mostMood || "-"}`;
+    document.getElementById("totalEntries").textContent = `${moods.length}`;
 }
 
 function applyMoodTheme(mood){

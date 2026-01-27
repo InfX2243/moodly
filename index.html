@@ -12,38 +12,49 @@
 <body>
     <main class="app">
         <div class="container">
-            <h1 class="app-title">Moodly</h1>
-            <p class="subtitle">Track how you feel, one day at a time</p>
-            <button id="themeToggle">🌙 Dark Mode</button>
-            <p id="streak">🔥 Streak: 0 days</p>
+            <header class="header">
+                <h1 class="app-title">Moodly</h1>
+                <p class="subtitle">Track how you feel, one day at a time</p>
+                <div class="header-actions">
+                    <button id="themeToggle">🌙 Dark Mode</button>
+                    <p id="streak">🔥 Streak: 0 days</p>
+                </div>
+            </header>
+            <section class="stats-row">
+                <div class="stat-pill">
+                    <span id="mostMood">😐</span>
+                    <small>Most common</small>
+                </div>
+                <div class="stat-pill">
+                    <span id="totalEntries">0</span>
+                    <small>Days tracked</small>
+                </div>
+            </section>
+            <section class="card mood-input mood-hero">
+                <h2>How are you feeling today?</h2>
+                <div class="moods">
+                    <button class="mood">😄</button>
+                    <button class="mood">🙂</button>
+                    <button class="mood">😐</button>
+                    <button class="mood">😢</button>
+                    <button class="mood">😡</button>
+                </div>
             
-            <section id="stats">
-                <h3>📊 Stats</h3>
-                <p id="mostMood">Most common mood: -</p>
-                <p id="totalEntries">Total days tracked: 0</p>
+                <!-- Note for mood -->
+                <textarea id="note" placeholder="Why do you feel this way?"></textarea>
+                
+                <button id="saveBtn">Save Mood</button>
             </section>
             
-            <h1>How are you feeling today?</h1>
+            <section class="card history">
+                <h2>Mood History</h2>
 
-            <div class="moods">
-                <button class="mood">😄</button>
-                <button class="mood">🙂</button>
-                <button class="mood">😐</button>
-                <button class="mood">😢</button>
-                <button class="mood">😡</button>
-            </div>
-        
-            <!-- Note for mood -->
-            <textarea id="note" placeholder="Why do you feel this way?"></textarea>
-            
-            <button id="saveBtn">Save Mood</button>
-            
-            <h2>Mood History</h2>
-            <div id="emptyState">
-                <p>🌱 No moods yet</p>
-                <p>Start by logging how you feel today</p>
-            </div>
-            <ul id="history"></ul>
+                <div id="emptyState">
+                    <p>🌱 No moods yet</p>
+                    <p>Start by logging how you feel today</p>
+                </div>
+                <ul id="history"></ul>
+            </section>
         </div>
     </main>
     <script src="script.js"></script>
