@@ -15,6 +15,14 @@ const MOOD_THEME_MAP = {
     "😡": "angry"
 }
 
+const AFFIRMATIONS = {
+    "😄": "Love that energy today ✨",
+    "🙂": "Glad you're feeling okay 💛",
+    "😐": "Thanks for checking in with yourself 🤍",
+    "😢": "I'm really glad you shared this 🫂",
+    "😡": "Thanks for acknowledging that feeling 🔥"
+}
+
 const themeToggleBtn = document.getElementById("themeToggle");
 const THEME_KEY = "theme";
 
@@ -46,6 +54,10 @@ moodButton.forEach(btn => {
     });
 });
 
+// Increases textarea height based on amount of text
+noteInput.addEventListener("input", () =>{
+    autoResizeTextarea(noteInput);
+})
 
 // Save mood
 saveBtn.addEventListener("click", ()=>{
@@ -79,9 +91,34 @@ saveBtn.addEventListener("click", ()=>{
     // Save back to localStorage
     localStorage.setItem(STORAGE_KEY, JSON.stringify(moods));
 
+    const hero = document.querySelector(".mood-hero");
+    hero.classList.add("accepted");
+    setTimeout(() => {
+        hero.classList.remove("accepted");
+    }, 600);
+
+    saveBtn.classList.add("saved");
+    saveBtn.textContent = "Saved";
+    saveBtn.disabled = true;
+
+    setTimeout(() => {
+        saveBtn.classList.remove("saved");
+        saveBtn.textContent = "Save Mood";
+        saveBtn.disabled = false;
+    }, 1000);
+
+    const activeMood = document.querySelector(".mood.selected");
+    if(activeMood){
+        activeMood.classList.add("recognized");
+        setTimeout(() => {
+            activeMood.classList.remove("recognized");
+        }, 500);
+    }
+
     // Reset selection & note input
     selectedMood = "";
     noteInput.value = "";
+    noteInput.style.height = "44px";
     moodButton.forEach(b => b.classList.remove("selected"));
 
     renderHistory();
@@ -95,6 +132,12 @@ themeToggleBtn.addEventListener("click", ()=>{
 
     themeToggleBtn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
 })
+
+// Auto resize function
+function autoResizeTextarea(el){
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+}
 
 // Render mood history
 function renderHistory(){
@@ -113,7 +156,10 @@ function renderHistory(){
         const li = document.createElement("li");
         li.classList.add("history-item");
         li.style.animationDelay = `${entry * 40}ms`
-        li.innerHTML = `<strong>${entry.date} - ${entry.mood}</strong> ${entry.note ? `: ${entry.note}`:''}`;
+        li.innerHTML = `
+                        <strong>${entry.date} ${entry.mood}</strong> 
+                        ${entry.note ? `<p>${entry.note}</p>`:""}
+                        `;
         historyList.appendChild(li);
     });
 
@@ -132,6 +178,31 @@ function renderHistory(){
     const mostMood = calculateMostFrequentMood(moods);
     document.getElementById("mostMood").textContent = `${mostMood || "-"}`;
     document.getElementById("totalEntries").textContent = `${moods.length}`;
+
+    // Call animateStat
+    animateStat("mostMood");
+    animateStat("totalEntries");
+
+    // Restore today's mood selection
+    if(todayEntry){
+        moodButton.forEach(btn => {
+            if(btn.textContent === todayEntry.mood){
+                btn.classList.add("selected", "bounce");
+                selectedMood = todayEntry.mood;
+            }
+            else{
+                btn.classList.remove("selected");
+            }
+        });
+        noteInput.value = todayEntry.note || "";
+    }
+}
+
+function animateStat(id){
+    const el = document.getElementById(id);
+    el.classList.remove("animate");
+    void el.offsetWidth;
+    el.classList.add("animate");
 }
 
 function applyMoodTheme(mood){

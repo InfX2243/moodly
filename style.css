@@ -6,73 +6,100 @@ body{
     transition: background 0.4s ease, color 0.3s ease;
 }
 
-body.happy{
-    background: #fff7cc;
-}
+body.happy{background: #fff7cc;}
+body.okay{background: #e6f0ff;}
+body.meh{background: #eeeeee;}
+body.sad{background: #e0f2ff;}
+body.angry{background: #ffe0e0;}
 
-body.okay{
-    background: #e6f0ff;
-}
-
-body.meh{
-    background: #eeeeee;
-}
-
-body.sad{
-    background: #e0f2ff;
-}
-
-body.angry{
-    background: #ffe0e0;
-}
+body.happy .mood-input textarea:focus, body.dark.happy .mood-input textarea:focus {box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.3);}
+body.okay .mood-input textarea:focus, body.dark.okay .mood-input textarea:focus {box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);}
+body.meh .mood-input textarea:focus, body.dark.meh .mood-input textarea:focus {box-shadow: 0 0 0 2px rgba(107, 114, 128, 0.3);}
+body.sad .mood-input textarea:focus, body.dark.sad .mood-input textarea:focus {box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.3);}
+body.angry .mood-input textarea:focus, body.dark.angry .mood-input textarea:focus {box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);}
 
 body.dark{
-    background: #121212;
-    color: #f5f5f5;
+    background: #0f172a;
+    color: #e5e7eb;
 }
 
 body.dark .container{
-    background-color: #1e1e1e;
+    background-color: #111827;
 }
 
-body.dark.happy{
-    background: #3b3b00;
-}
-
-body.dark.okay{
-    background: #1e2a3a;
-}
-
-body.dark.meh{
-    background: #2a2a2a;
-}
-
-body.dark.sad{
-    background: #1b2a3a;
-}
-
-body.dark.angry{
-    background: #3a1e1e;
-}
+body.dark.happy{background: #3b3b00;}
+body.dark.okay{background: #1e2a3a;}
+body.dark.meh{background: #2a2a2a;}
+body.dark.sad{background: #1b2a3a;}
+body.dark.angry{background: #3a1e1e;}
 
 body.dark .card{
-    background: rgba(30, 30, 30, 0.9);
+    background: #1f2937;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
 body.dark .history-item{
-    background: #2a2a2a;
+    background: linear-gradient(135deg, #1f2937, #111827);
+    border-left-color: #8b5cf6;
+    color: #d1d5db;
+}
+
+body.dark .history-item p{
+    color: #9ca3af;
+}
+
+body.dark .history-item p{
+    color: #ccc;
 }
 
 body.dark .mood-hero{
     background: linear-gradient(135deg, #1f2937, #111827);
 }
 
+body.dark .note-label{
+    color: #9ca3af;
+}
+
 body.dark .stat-pill{
-    background: #1f2937;
+    background: linear-gradient(135deg, #1f2937, #020617);
 }
 
 body.dark .mood.selected{
     background: #111827;
+}
+
+body.dark .mood-hero.accepted{
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.45), 0 16px 30px rgba(0, 0, 0, 0.6);
+}
+
+body.dark #saveBtn.saved{
+    background: linear-gradient(135deg, #15803d, #166534);
+}
+
+body.dark .mood.recognized{
+    box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.3);
+}
+
+body.dark .mood-input textarea{
+    /* border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); */
+    background: #020617;
+    color: #e5e7eb;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+body.dark .mood-input textarea:hover{
+    background: #111827;
+}
+
+body.dark .mood-input textarea:focus {
+    background: #020617;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.45);
+}
+
+body.dark .mood-input textarea::placeholder{
+    color: #6b7280;
 }
 
 .app{
@@ -142,7 +169,7 @@ h2{
 .header-actions{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     margin-top: 10px;
 }
 
@@ -155,9 +182,10 @@ h2{
     border-left: 4px solid #6366f1;
     border-radius: 10px;
     padding: 8px 12px;
-    margin-bottom: 6px 0;
-    font-size: 14px;
+    margin: 4px 0 0;
+    font-size: 13px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    color: #555;
 }
 
 .history-item:hover{
@@ -198,7 +226,43 @@ h2{
 }
 
 .mood-input textarea{
-    margin-bottom: 12px;
+    width: calc(100% - 7px); /*Full width minus the right padding*/
+    border: 1px solid rgba(0, 0, 0, 0.06); 
+    outline: none;
+    resize: none;
+
+    overflow: hidden;
+
+    background: rgba(249, 250, 251, 0.9);
+    border-radius: 12px;
+
+    margin: 14px 0;
+    padding-left: 6px;
+
+    font-size: 14px;
+    line-height: 1.6;
+    color: #374151;
+
+    min-height: 44px;
+    max-height: 140px;
+
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.mood-input textarea:hover{
+    background-color: #ffffff;
+}
+
+.mood-input textarea:focus{
+    background: #ffffff;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+}
+
+.mood-input textarea::placeholder{
+    color: #9ca3af;
+    font-style: italic;
 }
 
 .mood-hero{
@@ -207,11 +271,28 @@ h2{
     padding: 22px 18px;
     margin: 22px 0;
     box-shadow: 0 10px 20px rgba(99, 102, 241, 0.12);
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mood-hero.accepted{
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35), 0 16px 30px rgba(99, 102, 241, 0.25);
+    transform: translateY(-2px);
 }
 
 .moode-hero h2{
     margin-bottom: 12px;
+}
+
+.mood.recognized{
+    box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.18);
+}
+
+.note-label{
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 8px;
+    text-align: left;
 }
 
 p{
@@ -258,17 +339,18 @@ button:active{
     display: block;
 }
 
-textarea{
+/* textarea{
     line-height: 1.4;
-}
+} */
 
-textarea{
+/* textarea{
     width: 100%;
     margin: 10px 0;
-    padding: 6px;
+    padding: 6px 0px;
     resize: none;
     font-size: 14px;
-}
+    overflow: hidden;
+} */
 
 #themeToggle{
     margin-bottom: 10px;
@@ -294,6 +376,13 @@ textarea{
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     
     box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+}
+
+#saveBtn.saved{
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    box-shadow: 0 4px 10px rgba(34, 197, 94, 0.4);
+    cursor: default;
+    transform: scale(0.98);
 }
 
 #saveBtn:hover{
@@ -352,6 +441,16 @@ li{
     50% {transform: scale(0.9);}
     70% {transform: scale(1.1);}
     100% {transform: scale(1);}
+}
+
+@keyframes statPulse {
+    0% {transform: scale(1);}
+    40% {transform: scale(1.25);}
+    100% {transform: scale(1);}
+}
+
+.stat-pill .animate{
+    animation: statPulse 0.4s ease;
 }
 
 .mood.bounce{
