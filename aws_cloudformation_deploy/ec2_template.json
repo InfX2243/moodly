@@ -1,0 +1,79 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Hosting moodly app via Nginx on EC2 using UserData",
+
+  "Parameters": {
+    "KeyName": {
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "Default": "webapp",
+      "Description": "Existing EC2 KeyPair for SSH access"
+    },
+    "InstanceType": {
+      "Type": "String",
+      "Default": "t2.micro",
+      "AllowedValues": ["t2.micro", "t3.micro"],
+      "Description": "EC2 instance type"
+    }
+  },
+
+  "Resources": {
+    "SecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Allow HTTP and SSH",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 80,
+            "ToPort": 80,
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
+      }
+    },
+
+    "EC2Instance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "InstanceType": { "Ref": "InstanceType" },
+        "KeyName": { "Ref": "KeyName" },
+        "ImageId": "ami-0b6c6ebed2801a5cb",
+        "SecurityGroupIds": [
+          { "Ref": "SecurityGroup" }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Sub": "#!/bin/bash\nset -e\n\napt-get update -y\napt-get upgrade -y\n\napt-get install -y nginx git\n\nsystemctl start nginx\nsystemctl enable nginx\n\nrm -rf /var/www/html/*\n\ncd /var/www/html\ngit clone https://github.com/InfX2243/moodly.git\n\ncp -r moodly/* /var/www/html/\n\nchown -R www-data:www-data /var/www/html\nchmod -R 755 /var/www/html\n\nsystemctl restart nginx\n"
+          }
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "moodly-ec2"
+          }
+        ]
+      }
+    }
+  },
+
+  "Outputs": {
+    "InstancePublicIP": {
+      "Description": "Public IPv4 of the instance",
+      "Value": {
+        "Fn::Sub": "http://${EC2Instance.PublicIp}"
+      }
+    },
+    "WebsiteURL": {
+      "Description": "Public URL (DNS) of the website",
+      "Value": {
+        "Fn::Sub": "http://${EC2Instance.PublicDnsName}"
+      }
+    }
+  }
+}
