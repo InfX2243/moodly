@@ -2,6 +2,7 @@ const moodButton = document.querySelectorAll(".mood");
 const saveBtn = document.getElementById("saveBtn");
 const historyList = document.getElementById("history");
 const noteInput = document.getElementById("note");
+const loadMoreBtn = document.getElementById("loadMoreBtn");
 
 const STORAGE_KEY = "moods";
 let selectedMood = "";
@@ -19,6 +20,9 @@ const MOOD_THEME_MAP = {
 
 const themeToggleBtn = document.getElementById("themeToggle");
 const THEME_KEY = "theme";
+
+const HISTORY_PAGE_SIZE = 3;
+let visibleHistoryCount = HISTORY_PAGE_SIZE;
 
 function getTodayDate(){
     return new Date().toISOString().split("T")[0];
@@ -129,6 +133,11 @@ themeToggleBtn.addEventListener("click", ()=>{
     renderMoodTrends();
 
     themeToggleBtn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+})
+
+loadMoreBtn.addEventListener("click", () => {
+    visibleHistoryCount += HISTORY_PAGE_SIZE;
+    renderHistory();
 })
 
 // Auto resize function
@@ -251,17 +260,29 @@ function renderHistory(){
     else{
         emptyState.style.display = "none";
     }
-    
-    moods.forEach(entry =>{
+
+    const sortedMoods = [...moods].sort(
+        (a,b) => parseDate(b.date) - parseDate(a.date)
+    );
+    const visibleMoods = sortedMoods.slice(0, visibleHistoryCount);
+
+    visibleMoods.forEach((entry, index) => {
         const li = document.createElement("li");
         li.classList.add("history-item");
-        li.style.animationDelay = `${entry * 40}ms`
+        li.style.animationDelay = `${index * 40}ms`;
         li.innerHTML = `
-                        <strong>${entry.date} ${entry.mood}</strong> 
+                        <strong>${entry.date} ${entry.mood}</strong>
                         ${entry.note ? `<p>${entry.note}</p>`:""}
-                        `;
+        `;
         historyList.appendChild(li);
-    });
+    })
+
+    if(visibleHistoryCount < moods.length){
+        loadMoreBtn.style.display = "block";
+    }
+    else{
+        loadMoreBtn.style.display = "none";
+    }
 
     // Update mood based theme
     const today = getTodayDate();
