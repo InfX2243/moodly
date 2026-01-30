@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moodly - Mood Tracker Web App</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/moodly-logo.svg">
+    <link rel="stylesheet" href="src/style.css">
 </head>
 <body>
     <main class="app">
         <div class="container">
             <header class="header">
-                <h1 class="app-title">Moodly</h1>
+                <h1 class="app-title"><img src="assets/moodly-logo.svg" alt="logo"> Moodly</h1>
                 <p class="subtitle">Track how you feel, one day at a time</p>
                 <div class="header-actions">
                     <button id="themeToggle">🌙 Dark Mode</button>
-                    <p id="streak">🔥 Streak: 0 days</p>
+                    <p id="streak" class="streak-pill">🔥 Streak: 0 days</p>
                 </div>
             </header>
             <section class="stats-row">
@@ -41,7 +42,6 @@
                 </div>
             
                 <small class="note-label">Reflection (optional)</small>
-                <!-- Note for mood -->
                 <textarea id="note" placeholder="Want to add context?"></textarea>
                 
                 <button id="saveBtn">Save Mood</button>
@@ -56,8 +56,22 @@
                 </div>
                 <ul id="history"></ul>
             </section>
+            <section class="card mood-trends">
+                <h2>Mood Trends</h2>
+                <canvas id="moodTrendChart"></canvas>
+            </section>
         </div>
     </main>
-    <script src="script.js"></script>
+    <footer class="footer-card">
+        <div class="footer-content">
+            <p>Built with ❤️ by <a href="https://github.com/InfX2243" target="_blank">InfX2243</a></p>
+            <p>Check the code on <a href="https://github.com/InfX2243/moodly" target="_blank">GitHub</a></p>
+        </div>
+        <div class="footer-icons">
+            <a href="https://github.com/InfX2243" target="_blank"><img src="https://github.githubassets.com/favicons/favicon-dark.svg" alt="GitHub"></a>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="src/script.js"></script>
 </body>
 </html>

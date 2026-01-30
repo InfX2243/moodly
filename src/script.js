@@ -6,6 +6,8 @@ const noteInput = document.getElementById("note");
 const STORAGE_KEY = "moods";
 let selectedMood = "";
 
+let moodChart = null;
+
 // Map mood emoji to body class
 const MOOD_THEME_MAP = {
     "😄": "happy",
@@ -13,14 +15,6 @@ const MOOD_THEME_MAP = {
     "😐": "meh",
     "😢": "sad",
     "😡": "angry"
-}
-
-const AFFIRMATIONS = {
-    "😄": "Love that energy today ✨",
-    "🙂": "Glad you're feeling okay 💛",
-    "😐": "Thanks for checking in with yourself 🤍",
-    "😢": "I'm really glad you shared this 🫂",
-    "😡": "Thanks for acknowledging that feeling 🔥"
 }
 
 const themeToggleBtn = document.getElementById("themeToggle");
@@ -91,6 +85,8 @@ saveBtn.addEventListener("click", ()=>{
     // Save back to localStorage
     localStorage.setItem(STORAGE_KEY, JSON.stringify(moods));
 
+    renderMoodTrends();
+
     const hero = document.querySelector(".mood-hero");
     hero.classList.add("accepted");
     setTimeout(() => {
@@ -130,6 +126,8 @@ themeToggleBtn.addEventListener("click", ()=>{
     const isDark = document.body.classList.contains("dark");
     localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
 
+    renderMoodTrends();
+
     themeToggleBtn.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
 })
 
@@ -137,6 +135,108 @@ themeToggleBtn.addEventListener("click", ()=>{
 function autoResizeTextarea(el){
     el.style.height = "auto";
     el.style.height = el.scrollHeight + "px";
+}
+
+function getChartTheme(){
+    const isDark = document.body.classList.contains("dark");
+
+    return{
+        textColor: isDark ? "#e5e7eb" : "#374151",
+        gridColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)",
+        tooltipBg: isDark ? "#020617" : "#ffffff"
+    }
+}
+
+function renderMoodTrends(){
+    const moods = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+    const theme = getChartTheme();
+
+    // Collect the moods and dates for chart data
+    const moodCounts = {
+        "😄": 0,
+        "🙂": 0,
+        "😐": 0,
+        "😢": 0,
+        "😡": 0
+    };
+
+    moods.forEach(entry =>{
+        moodCounts[entry.mood]++;
+    });
+
+    // Create chart data
+    const labels = ["Happy 😄", "Okay 🙂", "Meh 😐", "Sad 😢", "Angry 😡"];
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Mood Count',
+            data: [moodCounts["😄"], moodCounts["🙂"], moodCounts["😐"], moodCounts["😢"], moodCounts["😡"]],
+            backgroundColor: [
+                'rgba(34, 197, 94, 0.6)', // Happy (green)
+                'rgba(59, 130, 246, 0.6)', // Okay (blue)
+                'rgba(107, 114, 128, 0.6)', // Meh (gray)
+                'rgba(56, 189, 248, 0.6)', // Sad (light blue)
+                'rgba(239, 68, 68, 0.6)'  // Angry (red)
+            ],
+            borderColor: [
+                'rgba(34, 197, 94, 1)', // Happy
+                'rgba(59, 130, 246, 1)', // Okay
+                'rgba(107, 114, 128, 1)', // Meh
+                'rgba(56, 189, 248, 1)', // Sad
+                'rgba(239, 68, 68, 1)'   // Angry
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    const ctx = document.getElementById('moodTrendChart').getContext('2d');
+
+    if(moodChart){
+        moodChart.data = data;
+
+        moodChart.options.scales.x.ticks.color = theme.textColor;
+        moodChart.options.scales.y.ticks.color = theme.textColor;
+
+        moodChart.options.scales.x.grid.color = theme.gridColor;
+        moodChart.options.scales.y.grid.color = theme.gridColor;
+
+        moodChart.options.plugins.tooltip.backgroundColor = theme.tooltipBg;
+        moodChart.options.plugins.tooltip.titleColor = theme.textColor;
+        moodChart.options.plugins.tooltip.bodyColor = theme.textColor;
+
+        moodChart.update();
+    }
+    else{
+        moodChart = new Chart(ctx, {
+            type: "bar",
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {display: false},
+                    tooltip: {
+                        backgroundColor: theme.tooltipBg,
+                        titleColor: theme.textColor,
+                        bodyColor: theme.textColor,
+                        borderColor: theme.gridColor,
+                        borderWidth: 1
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {color: theme.textColor},
+                        grid: {color: theme.gridColor}
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {color: theme.textColor},
+                        grid: {color: theme.gridColor}
+                    }
+                }
+            }
+        });
+    }
 }
 
 // Render mood history
@@ -174,6 +274,8 @@ function renderHistory(){
     const streakCount = calculateStreak(moods);
     document.getElementById("streak").textContent = `🔥 Streak: ${streakCount} day${streakCount !== 1 ? "s" : ""}`;
 
+    animateStreak();
+
     // Update stats
     const mostMood = calculateMostFrequentMood(moods);
     document.getElementById("mostMood").textContent = `${mostMood || "-"}`;
@@ -196,6 +298,13 @@ function renderHistory(){
         });
         noteInput.value = todayEntry.note || "";
     }
+}
+
+function animateStreak(){
+    const streakEl = document.getElementById("streak");
+    streakEl.classList.remove("animate");
+    void streakEl.offsetWidth;
+    streakEl.classList.add("animate");
 }
 
 function animateStat(id){
@@ -273,3 +382,4 @@ function loadThemePreference(){
 // Load on start
 renderHistory();
 loadThemePreference();
+renderMoodTrends();

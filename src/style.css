@@ -1,16 +1,16 @@
 body{
     font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background: #f4f4f4;
+    background: linear-gradient(135deg, #f4f4f4, #ffffff);
     margin: 0;
     min-height: 100vh;
-    transition: background 0.4s ease, color 0.3s ease;
+    transition: background 0.7s ease, color 0.7s ease;
 }
 
-body.happy{background: #fff7cc;}
-body.okay{background: #e6f0ff;}
-body.meh{background: #eeeeee;}
-body.sad{background: #e0f2ff;}
-body.angry{background: #ffe0e0;}
+body.happy{background: linear-gradient(135deg, #FFED6F, #FACC15);}
+body.okay{background: linear-gradient(135deg, #93C5FD, #3B82F6);}
+body.meh{background: linear-gradient(135deg, #D1D5DB, #6B7280);}
+body.sad{background: linear-gradient(135deg, #BFDBFE, #60A5FA);}
+body.angry{background: linear-gradient(135deg, #FCA5A5, #EF4444);}
 
 body.happy .mood-input textarea:focus, body.dark.happy .mood-input textarea:focus {box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.3);}
 body.okay .mood-input textarea:focus, body.dark.okay .mood-input textarea:focus {box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);}
@@ -19,19 +19,20 @@ body.sad .mood-input textarea:focus, body.dark.sad .mood-input textarea:focus {b
 body.angry .mood-input textarea:focus, body.dark.angry .mood-input textarea:focus {box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);}
 
 body.dark{
-    background: #0f172a;
+    background: linear-gradient(135deg, #0f172a, #111827);
     color: #e5e7eb;
 }
 
 body.dark .container{
-    background-color: #111827;
+    background: linear-gradient(135deg, #111827, #1f2937);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
 }
 
-body.dark.happy{background: #3b3b00;}
-body.dark.okay{background: #1e2a3a;}
-body.dark.meh{background: #2a2a2a;}
-body.dark.sad{background: #1b2a3a;}
-body.dark.angry{background: #3a1e1e;}
+body.dark.happy{background: linear-gradient(135deg, #FCD34D, #B45309);}
+body.dark.okay{background: linear-gradient(135deg, #60A5FA, #1E40AF);}
+body.dark.meh{background: linear-gradient(135deg, #4B5563, #1F2937);}
+body.dark.sad{background: linear-gradient(135deg, #2563EB, #1E3A8A);}
+body.dark.angry{background: linear-gradient(135deg, #DC2626, #991B1B);}
 
 body.dark .card{
     background: #1f2937;
@@ -72,8 +73,23 @@ body.dark .mood-hero.accepted{
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.45), 0 16px 30px rgba(0, 0, 0, 0.6);
 }
 
+body.dark .mood-hero::before{
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+}
+
+body.dark #emptyState{
+    background: rgba(31, 41, 55, 0.85);
+    color: #cbd5e1;
+}
+
 body.dark #saveBtn.saved{
     background: linear-gradient(135deg, #15803d, #166534);
+}
+
+body.dark #themeToggle{
+    background: linear-gradient(135deg, #1e293b, #111827);
+    color: #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 body.dark .mood.recognized{
@@ -81,8 +97,6 @@ body.dark .mood.recognized{
 }
 
 body.dark .mood-input textarea{
-    /* border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); */
     background: #020617;
     color: #e5e7eb;
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -100,6 +114,34 @@ body.dark .mood-input textarea:focus {
 
 body.dark .mood-input textarea::placeholder{
     color: #6b7280;
+}
+
+body.dark .mood-trends h2{
+    color: #ffffff;
+}
+
+body.dark .stat-pill span{
+    color: #f9fafb;
+}
+
+body.dark .stat-pill small{
+    color: #9ca3af;
+}
+
+body.dark .subtitle{
+    color: #9ca3af;
+}
+
+body.dark .streak-pill{
+    background: linear-gradient(135deg, #3b3b00, #5c4d00);
+    color: #facc15;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+body.dark .footer-card{
+    background: linear-gradient(135deg, #0f172a, #111827);
+    color: #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 .app{
@@ -122,19 +164,24 @@ body.dark .mood-input textarea::placeholder{
 }
 
 .container{
-    background: #ffffff;
+    background: linear-gradient(135deg, #ffffff, #f9fafb);
     padding: 28px 26px;
     margin: 30px;
     border-radius: 18px;
-    width: 360px;
+    width: 300px;
     text-align: center;
 
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
     transition: background 0.3s ease, color 0.3s ease;
 }
 
+.card, .mood-trends{
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
 .card{
-    background: rgba(255, 255, 255, 0.85);
     border-radius: 12px;
     padding: 14px;
     margin: 15px 0;
@@ -146,6 +193,9 @@ body.dark .mood-input textarea::placeholder{
 }
 
 #emptyState{
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.85);
     color: #888;
     font-size: 14px;
     margin: 20px 0;
@@ -159,7 +209,7 @@ body.dark .mood-input textarea::placeholder{
 h2{
     font-size: 18px;
     font-weight: 500;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .header{
@@ -178,19 +228,21 @@ h2{
 }
 
 .history-item{
-    background: linear-gradient(135deg, #ffffff, #f9fafb);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-left: 4px solid #6366f1;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 8px 12px;
     margin: 4px 0 0;
     font-size: 13px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     color: #555;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .history-item:hover{
-    transform: translateX(2px);
-    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.12);
+    transform: translateX(2px) translateY(-1px);
+    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.15);
 }
 
 .history-item strong{
@@ -271,7 +323,16 @@ h2{
     padding: 22px 18px;
     margin: 22px 0;
     box-shadow: 0 10px 20px rgba(99, 102, 241, 0.12);
-    transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    transition: background 0.7s ease, transform 0.25s ease, box-shadow 0.25s ease, color 0.7s ease;
+}
+
+.mood-hero::before{
+    content: '';
+    position: absolute;
+    top: 0; left: 0;right: 0;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    pointer-events: none;
 }
 
 .mood-hero.accepted{
@@ -285,6 +346,18 @@ h2{
 
 .mood.recognized{
     box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.18);
+}
+
+.mood-trends{
+    margin-top: 20px;
+    padding: 0 20px 20px 20px;
+    border-radius: 12px;
+}
+
+.mood-trends h2{
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #444;
 }
 
 .note-label{
@@ -321,43 +394,82 @@ button:active{
 
 .stat-pill{
     flex: 1;
-    background: #f9fafb;
+    background: linear-gradient(135deg, #ffffff, #f9fafb);
     border-radius: 14px;
     padding: 12px;
     text-align: center;
     transition: background 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+.stat-pill:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
 }
 
 .stat-pill small{
     font-size: 12px;
     color: #6b7280;
+    letter-spacing: 0.2px;
 }
 
 .stat-pill span{
     font-size: 20px;
     font-weight: 600;
     display: block;
+    color: #111827;
 }
 
-/* textarea{
-    line-height: 1.4;
-} */
-
-/* textarea{
-    width: 100%;
-    margin: 10px 0;
-    padding: 6px 0px;
-    resize: none;
+.streak-pill{
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-weight: 600;
     font-size: 14px;
-    overflow: hidden;
-} */
+    display: inline-block;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #b45309;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+}
+
+.streak-pill:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25);
+}
 
 #themeToggle{
+    padding: 8px 12px;
     margin-bottom: 10px;
     padding: 6px 10px;
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 12px;
     border: none;
+    font-weight: 500;
+    font-size: 14px;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
+
+    background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+    color: #1e3a8a;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+#themeToggle:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+}
+
+#themeToggle:active{
+    transform: scale(0.97);
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
+}
+
+#trendChart {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 #saveBtn{
@@ -418,6 +530,55 @@ li{
     margin: 5px 0;
 }
 
+.footer-card{
+    background: #ffffff;
+    width: 300px;
+    padding: 20px 10px;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    color: #9ca3af;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin: 0 auto;
+}
+
+.footer-content{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.footer-content a{
+    text-decoration: none;
+}
+
+.footer-icons{
+    display: flex;
+    justify-content: center;
+}
+
+.footer-icons a{
+    margin: 0 10px;
+}
+
+.footer-icons img{
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.3s;
+    border: 3px solid #000;
+    border-radius: 16px;
+    background: #000;
+    opacity: 0.5;
+}
+
+.footer-icons a:hover img{
+    opacity: 0.7;
+}
+
 /* History animations */
 @keyframes fadeSlideIn{
     from{
@@ -447,6 +608,16 @@ li{
     0% {transform: scale(1);}
     40% {transform: scale(1.25);}
     100% {transform: scale(1);}
+}
+
+@keyframes streakPulse {
+    0% {transform: scale(1);}
+    40% {transform: scale(1.2);}
+    100% {transform: scale(1);}
+}
+
+.streak-pill.animate{
+    animation: streakPulse 0.4s ease;
 }
 
 .stat-pill .animate{
